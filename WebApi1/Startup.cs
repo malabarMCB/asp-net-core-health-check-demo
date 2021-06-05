@@ -1,3 +1,4 @@
+using System;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -34,7 +35,8 @@ namespace WebApi1
                     "hosted_service_startup",
                     failureStatus: HealthStatus.Degraded,
                     tags: new[] {"ready"})
-                .AddMemoryHealthCheck("memory");
+                .AddMemoryHealthCheck("memory")
+                .AddUrlGroup(new Uri("http://localhost:5003/health"), "API 2 health check");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
